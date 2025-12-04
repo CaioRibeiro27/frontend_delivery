@@ -30,15 +30,11 @@ function RestaurantSignup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/auth/register-restaurant",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
+      const response = await api.post(
+        "/api/auth/register-restaurant",
+        formdata
       );
-      const data = await response.json();
+      const data = response.data;
       if (data.success) {
         alert("Restaurante cadastrado!");
         navigate("/"); // Vai para o login

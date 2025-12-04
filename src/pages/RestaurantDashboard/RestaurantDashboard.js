@@ -23,10 +23,9 @@ function RestaurantDashboard() {
 
   const fetchOrders = async (restaurantId) => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/restaurant/${restaurantId}/orders`
-      );
-      const data = await response.json();
+      const response = await api.get(`/api/restaurant/${restaurantId}/orders`);
+      const data = response.data;
+
       if (data.success) setOrders(data.orders);
     } catch (error) {
       console.error(error);
@@ -36,10 +35,9 @@ function RestaurantDashboard() {
   const handleSelectOrder = async (order) => {
     setSelectedOrder(order);
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/orders/${order.id_pedido}/items`
-      );
-      const data = await response.json();
+      const response = await fetch(`/api/orders/${order.id_pedido}/items`);
+      const data = response.data;
+
       if (data.success) setOrderItems(data.items);
     } catch (error) {
       console.error(error);
@@ -49,15 +47,12 @@ function RestaurantDashboard() {
   const updateStatus = async (newStatus) => {
     if (!selectedOrder) return;
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/orders/${selectedOrder.id_pedido}/status`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status: newStatus }),
-        }
+      const response = await api.put(
+        `/api/orders/${selectedOrder.id_pedido}/status`,
+        { status: newStatus }
       );
-      if (response.ok) {
+
+      if (response.status === 200) {
         const updatedOrders = orders.map((o) =>
           o.id_pedido === selectedOrder.id_pedido
             ? { ...o, statusPedido: newStatus }

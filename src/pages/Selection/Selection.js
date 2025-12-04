@@ -1,7 +1,6 @@
 import React from "react";
 import "./Selection.css";
 import { useNavigate } from "react-router-dom";
-import api from "../services/api";
 
 function Selection() {
   const navigate = useNavigate();

@@ -36,28 +36,27 @@ function Cart() {
 
   const fetchAddresses = async (userId) => {
     try {
-      const res = await fetch(
-        `http://localhost:3001/api/user/addresses/${userId}`
-      );
-      const data = await res.json();
+      const res = await api.get(`/api/user/addresses/${userId}`);
+      const data = res.data;
+
       if (data.success && data.addresses.length > 0) {
         setAddresses(data.addresses);
         setSelectedAddressId(data.addresses[0].id_endereco);
       }
     } catch (e) {
-      console.error(e);
+      console.error("Erro ao busrcar endereços", e);
     }
   };
 
   const fetchCards = async (userId) => {
     try {
-      const res = await fetch(`http://localhost:3001/api/user/cards/${userId}`);
-      const data = await res.json();
+      const res = await api.get(`/api/user/cards/${userId}`);
+      const data = res.data;
       if (data.success) {
         setCards(data.cards);
       }
     } catch (e) {
-      console.error(e);
+      console.error("Erro ao buscar cartões:");
     }
   };
 
@@ -121,20 +120,19 @@ function Cart() {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData),
-      });
+      const response = await post("/api/orders", orderData);
 
-      if (response.ok) {
+      if (response.data.success) {
         alert("Pedido realizado com sucesso!");
         navigate("/home");
       } else {
-        alert("Erro ao finalizar pedido (Verifique o console do backend).");
+        alert(
+          "Erro ao finalizar pedido: " +
+            (response.data.message || "Erro desconhecido")
+        );
       }
     } catch (e) {
-      console.error(e);
+      console.error("Erro ao finalizar pedido", e);
     }
   };
 

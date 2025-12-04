@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./RestaurantSettings.css";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle, FaArrowLeft } from "react-icons/fa";
-import api from "../services/api";
 
 import RestGeneralSettings from "../../components/RestGeneralSettings/RestGeneralSettings";
 import RestProfileSettings from "../../components/RestProfileSettings/RestProfileSettings";

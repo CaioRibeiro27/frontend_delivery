@@ -27,10 +27,9 @@ function RestaurantMenu() {
 
   const fetchMenu = async (restaurantId) => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/restaurant/menu/${restaurantId}`
-      );
-      const data = await response.json();
+      const response = await api.get(`/api/restaurant/menu/${restaurantId}`);
+      const data = response.data;
+
       if (data.success) setMenuItems(data.items);
     } catch (error) {
       console.error(error);
@@ -53,15 +52,8 @@ function RestaurantMenu() {
     };
 
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/restaurant/menu",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newItem),
-        }
-      );
-      if (response.ok) {
+      const response = await api.post("/api/restaurant/menu", newItem);
+      if (response.data.success || response.status === 200) {
         alert("Item adicionado!");
         setIsModalOpen(false);
         setNome("");

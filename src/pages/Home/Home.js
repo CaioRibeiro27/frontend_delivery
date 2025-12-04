@@ -29,8 +29,9 @@ function Home() {
   const fetchData = async (userId) => {
     // Busca Restaurantes
     try {
-      const resRest = await fetch("http://localhost:3001/api/restaurant/all");
-      const dataRest = await resRest.json();
+      const resRest = await api.get("/api/restaurant/all");
+      const dataRest = resRest.data;
+
       if (dataRest.success) setRestaurants(dataRest.restaurants);
     } catch (e) {
       console.error(e);
@@ -38,10 +39,9 @@ function Home() {
 
     // Busca Pedido Ativo
     try {
-      const resOrder = await fetch(
-        `http://localhost:3001/api/user/${userId}/active-order`
-      );
-      const dataOrder = await resOrder.json();
+      const resOrder = await api.get(`/api/user/${userId}/active-order`);
+      const dataOrder = resOrder.data;
+
       if (dataOrder.success) setActiveOrder(dataOrder.activeOrder);
     } catch (e) {
       console.error(e);

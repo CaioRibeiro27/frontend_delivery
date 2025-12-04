@@ -20,22 +20,20 @@ function ClientMenu() {
 
   const fetchRestaurantInfo = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/restaurant/${id}`
-      );
-      const data = await response.json();
+      const response = await api.get(`/api/restaurant/${id}`);
+      const data = response.data;
+
       if (data.success) setRestaurant(data.user);
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao buscar restaurante:", error);
     }
   };
 
   const fetchMenu = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/restaurant/menu/${id}`
-      );
-      const data = await response.json();
+      const response = await api.get(`/api/restaurant/menu/${id}`);
+      const data = response.data;
+
       if (data.success) setMenuItems(data.items);
     } catch (error) {
       console.error(error);
