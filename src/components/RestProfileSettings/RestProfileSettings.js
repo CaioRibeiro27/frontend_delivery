@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./RestProfileSettings.css";
 import { FaUserCircle } from "react-icons/fa";
+import api from "../services/api";
 
 function RestProfileSettings({ restaurantId }) {
   const [data, setData] = useState(null);
@@ -9,11 +10,9 @@ function RestProfileSettings({ restaurantId }) {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(
-        `http://localhost:3001/api/restaurant/${restaurantId}`
-      );
-      const json = await res.json();
-      if (json.success) setData(json.user);
+      const res = await api.get(`/api/restaurant/${restaurantId}`);
+
+      if (res.data.success) setData(red.data.user);
     } catch (error) {
       console.error(error);
     }
@@ -31,22 +30,18 @@ function RestProfileSettings({ restaurantId }) {
     if (modalType === "senha") body = { novaSenha: inputValue };
 
     try {
-      const res = await fetch(
-        `http://localhost:3001/api/restaurant/${restaurantId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        }
-      );
-      if (res.ok) {
+      const res = await api.put(`/api/restaurant/${restaurantId}`, body);
+      if (res.data.sucess) {
         alert("Atualizado!");
         setModalType(null);
         setInputValue("");
         fetchData();
+      } else {
+        alert("Erro: " + res.data.message); // Boa prática mostrar erro se houver
       }
     } catch (error) {
       console.error(error);
+      alert("Erro ao atualizar.");
     }
   };
 

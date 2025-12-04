@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./AddressSettings.css";
 import { FaPlus, FaMapMarkerAlt } from "react-icons/fa";
+import api from "../services/api";
 
 function AddressSettings({ userId }) {
   const [addresses, setAddresses] = useState([]);
@@ -19,10 +20,9 @@ function AddressSettings({ userId }) {
   // Buscar endereços
   const fetchAddresses = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/user/addresses/${userId}`
-      );
-      const data = await response.json();
+      const response = await api.get(`/api/user/addresses/${userId}`);
+      const data = response.data;
+
       if (data.success) setAddresses(data.addresses);
     } catch (error) {
       console.error(error);
@@ -70,18 +70,20 @@ function AddressSettings({ userId }) {
     };
 
     const url = isEditMode
-      ? `http://localhost:3001/api/user/addresses/${selectedAddressId}`
-      : `http://localhost:3001/api/user/addresses`;
-
-    const method = isEditMode ? "PUT" : "POST";
+      ? `/api/user/addresses/${selectedAddressId}`
+      : `/api/user/addresses`;
 
     try {
-      const response = await fetch(url, {
-        method: method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      const data = await response.json();
+      let response;
+
+      if (isEditMode) {
+        response = await api.put(url, body);
+      } else {
+        response = await api.post(url, body);
+      }
+
+      const data = response.data;
+
       if (data.success) {
         alert(isEditMode ? "Endereço atualizado!" : "Endereço adicionado!");
         setIsModalOpen(false);
@@ -90,7 +92,8 @@ function AddressSettings({ userId }) {
         alert("Erro: " + data.message);
       }
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao salvar:", error);
+      alert("Erro ao conectar com o servidor.");
     }
   };
 
@@ -98,24 +101,25 @@ function AddressSettings({ userId }) {
   const handleDelete = async () => {
     if (window.confirm("Tem certeza que deseja remover este endereço?")) {
       try {
-        const response = await fetch(
-          `http://localhost:3001/api/user/addresses/${selectedAddressId}`,
-          { method: "DELETE" }
+        const response = await api.delete(
+          `/api/user/addresses/${selectedAddressId}`
         );
-        const data = await response.json();
+
+        const data = response.data();
+
         if (data.success) {
           alert("Endereço removido!");
           setIsModalOpen(false);
           fetchAddresses();
         }
       } catch (error) {
-        console.error(error);
+        console.error("Erro ao deletar:", error);
       }
     }
   };
 
   const checkCEP = async (e) => {
-    const cepDigitado = e.target.value.replace(/\D/g, ""); // Remove traços/pontos
+    const cepDigitado = e.target.value.replace(/\D/g, "");
 
     if (cepDigitado.length === 8) {
       try {
@@ -128,6 +132,7 @@ function AddressSettings({ userId }) {
           setRua(data.logradouro);
           setBairro(data.bairro);
           setCidade(data.localidade);
+          document.getElementById("numero")?.focus();
 
           document.getElementById("numero").focus();
         } else {

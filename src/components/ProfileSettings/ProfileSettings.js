@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ProfileSettings.css";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 
 function ProfileSettings({ userId }) {
   const navigate = useNavigate();
@@ -12,10 +13,8 @@ function ProfileSettings({ userId }) {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/user/users/${userId}`
-      );
-      const data = await response.json();
+      const response = await api.get(`/api/user/users/${userId}`);
+      const data = response.data;
       if (data.success) setUserData(data.user);
     } catch (error) {
       console.error(error);
@@ -23,7 +22,7 @@ function ProfileSettings({ userId }) {
   };
 
   useEffect(() => {
-    fetchUserData();
+    if (userId) fetchUserData();
   }, [userId]);
 
   const maskPhone = (phone) => {
@@ -48,19 +47,16 @@ function ProfileSettings({ userId }) {
       body = { novaSenha: inputValue, senhaAtual: currentPassword };
 
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/user/users/${userId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        }
-      );
-      const data = await response.json();
+      const response = await api.put(`/api/user/users/${userId}`, body);
+      const data = response.data;
 
       if (data.success) {
-        const currentUser = JSON.parse(localStorage.getItem("user"));
+        const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
         const updatedUser = { ...currentUser, ...body };
+
+        delete updatedUser.senhaAtual;
+        delete updatedUser.novaSenha;
+
         localStorage.setItem("user", JSON.stringify(updatedUser));
 
         alert("Atualizado com sucesso!");
@@ -83,12 +79,8 @@ function ProfileSettings({ userId }) {
       )
     ) {
       try {
-        const response = await fetch(
-          `http://localhost:3001/api/user/users/${userId}`,
-          { method: "DELETE" }
-        );
-
-        const data = await response.json();
+        const response = await api.delete(`/api/user/users/${userId}`);
+        const data = response.data;
 
         if (data.success) {
           alert("Conta excluída.");

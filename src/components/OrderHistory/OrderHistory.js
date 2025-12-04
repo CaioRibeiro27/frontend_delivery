@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./OrderHistory.css";
 import { FaArrowLeft } from "react-icons/fa";
+import api from "../services/api";
 
 function OrderHistory({ userId, onClose }) {
   const [orders, setOrders] = useState([]);
@@ -9,10 +10,8 @@ function OrderHistory({ userId, onClose }) {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3001/api/user/${userId}/orders`
-        );
-        const data = await response.json();
+        const response = await api.get(`/api/user/${userId}/orders`);
+        const data = response.data;
 
         if (data.success) {
           setOrders(data.orders);
@@ -42,6 +41,13 @@ function OrderHistory({ userId, onClose }) {
     return status.replace("_", " ");
   };
 
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+  };
+
   return (
     <div className="history-overlay">
       <div className="history-container">
@@ -66,10 +72,7 @@ function OrderHistory({ userId, onClose }) {
                   }}
                 >
                   <span>{order.nome_restaurante}</span>
-                  <span>
-                    R${" "}
-                    {parseFloat(order.valor_total).toFixed(2).replace(".", ",")}
-                  </span>
+                  <span>{formatCurrency(order.valor_total)}</span>
                 </div>
 
                 <div

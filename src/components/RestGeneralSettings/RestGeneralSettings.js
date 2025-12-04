@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./RestGeneralSettings.css";
 import { FaVolumeUp } from "react-icons/fa";
+import api from "../services/api";
 
 function RestGeneralSettings({ restaurantId, isDarkMode, setIsDarkMode }) {
   const [address, setAddress] = useState(null);
@@ -16,10 +17,8 @@ function RestGeneralSettings({ restaurantId, isDarkMode, setIsDarkMode }) {
   // Busca o endereço
   const fetchAddress = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/restaurant/${restaurantId}/address`
-      );
-      const data = await response.json();
+      const response = await api.get(`/api/restaurant/${restaurantId}/address`);
+      const data = response.data;
       if (data.success) {
         setAddress(data.address);
         setFormData(data.address);
@@ -36,21 +35,23 @@ function RestGeneralSettings({ restaurantId, isDarkMode, setIsDarkMode }) {
   const handleUpdateAddress = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/restaurant/${restaurantId}/address`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
+      const response = await api.put(
+        `/api/restaurant/${restaurantId}/address`,
+        formData
       );
-      if (response.ok) {
+
+      const data = response.data;
+
+      if (data.success) {
         alert("Endereço atualizado!");
         setIsModalOpen(false);
         fetchAddress();
+      } else {
+        alert("Erro ao atualizar: " + (data.message || "Erro desconhecido"));
       }
     } catch (error) {
-      console.error(error);
+      console.error("Erro na requisição:", error);
+      alert("Erro ao conectar com o servidor.");
     }
   };
 

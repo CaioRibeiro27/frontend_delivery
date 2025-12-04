@@ -3,6 +3,7 @@ import "./ClientMenu.css";
 import { FaArrowLeft, FaPlus } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import api from "../services/api";
 
 function ClientMenu() {
   const navigate = useNavigate();

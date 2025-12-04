@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./PaymentSettings.css";
 import { FaPlus, FaCreditCard } from "react-icons/fa";
+import api from "../services/api";
 
 function PaymentSettings({ userId }) {
   const [cards, setCards] = useState([]);
@@ -17,10 +18,9 @@ function PaymentSettings({ userId }) {
   const fetchCards = async () => {
     if (!userId) return;
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/user/cards/${userId}`
-      );
-      const data = await response.json();
+      const response = await api.get(`/api/user/${userId}/cards`);
+      const data = response.data;
+
       if (data.success) {
         setCards(data.cards);
       }
@@ -51,13 +51,9 @@ function PaymentSettings({ userId }) {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/api/user/cards", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(cardData),
-      });
+      const response = await api.post("/api/user/cards", cardData);
 
-      const data = await response.json();
+      const data = response.data;
 
       if (data.success) {
         alert("Cartão adicionado!");
@@ -88,18 +84,14 @@ function PaymentSettings({ userId }) {
     if (!selectedCard) return;
 
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/user/cards/${selectedCard.id_cartao}`,
+      const response = await api.put(
+        `/api/user/cards/${selectedCard.id_cartao}`,
         {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            nome_titular: editNomeTitular,
-            data_vencimento: editDataVencimento,
-          }),
+          nome_titular: editNomeTitular,
+          data_vencimento: editDataVencimento,
         }
       );
-      const data = await response.json();
+      const data = response.data;
       if (data.success) {
         alert("Cartão atualizado!");
         setIsEditModalOpen(false);
@@ -117,11 +109,10 @@ function PaymentSettings({ userId }) {
 
     if (window.confirm("Tem certeza que deseja remover este cartão?")) {
       try {
-        const response = await fetch(
-          `http://localhost:3001/api/user/cards/${selectedCard.id_cartao}`,
-          { method: "DELETE" }
+        const response = await api.delete(
+          `/api/user/cards/${selectedCard.id_cartao}`
         );
-        const data = await response.json();
+        const data = response.data;
         if (data.success) {
           alert("Cartão removido!");
           setIsEditModalOpen(false);

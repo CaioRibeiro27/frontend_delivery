@@ -3,6 +3,7 @@ import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import InputGroup from "../../components/InputGroup/InputGroup";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
+import api from "../services/api";
 
 function Signup() {
   const [name, setName] = useState("");

@@ -2,19 +2,18 @@ import React from "react";
 import "./SocialLogin.css";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
+import api from "../services/api";
 
 function SocialLogin({ mode }) {
   const navigate = useNavigate();
 
   const handleGoogleSuccess = async (tokenResponse) => {
     try {
-      const response = await fetch("http://localhost:3001/api/auth/google", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: tokenResponse.access_token }),
+      const response = await api.post("/api/auth/google", {
+        token: tokenResponse.access_token,
       });
 
-      const data = await response.json();
+      const data = response.data;
 
       if (data.success) {
         if (mode === "signup" && data.created === false) {
