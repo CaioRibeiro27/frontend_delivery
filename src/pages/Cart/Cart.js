@@ -3,7 +3,7 @@ import "./Cart.css";
 import { FaArrowLeft, FaMinus } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import api from "../services/api";
+import api from "../../services/api";
 
 function Cart() {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./RestGeneralSettings.css";
 import { FaVolumeUp } from "react-icons/fa";
-import api from "../services/api";
+import api from "../../services/api";
 
 function RestGeneralSettings({ restaurantId, isDarkMode, setIsDarkMode }) {
   const [address, setAddress] = useState(null);

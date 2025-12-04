@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./OrderHistory.css";
 import { FaArrowLeft } from "react-icons/fa";
-import api from "../services/api";
+import api from "../../services/api";
 
 function OrderHistory({ userId, onClose }) {
   const [orders, setOrders] = useState([]);

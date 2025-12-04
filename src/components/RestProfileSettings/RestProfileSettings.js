@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./RestProfileSettings.css";
 import { FaUserCircle } from "react-icons/fa";
-import api from "../services/api";
+import api from "../../services/api";
 
 function RestProfileSettings({ restaurantId }) {
   const [data, setData] = useState(null);

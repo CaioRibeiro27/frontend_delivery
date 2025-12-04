@@ -1,6 +1,5 @@
 import React from "react";
 import "./InputGroup.css";
-import api from "../services/api";
 
 function InputGroup({ label, type, id, value, onChange, onBlur }) {
   return (

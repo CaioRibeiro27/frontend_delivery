@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./RestaurantDashboard.css";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import api from "../services/api";
+import api from "../../services/api";
 
 function RestaurantDashboard() {
   const navigate = useNavigate();

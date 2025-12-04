@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./RestaurantSignup.css";
 import InputGroup from "../../components/InputGroup/InputGroup";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../services/api";
+import api from "../../services/api";
 
 function RestaurantSignup() {
   const navigate = useNavigate();

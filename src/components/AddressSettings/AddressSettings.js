@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./AddressSettings.css";
 import { FaPlus, FaMapMarkerAlt } from "react-icons/fa";
-import api from "../services/api";
+import api from "../../services/api";
 
 function AddressSettings({ userId }) {
   const [addresses, setAddresses] = useState([]);

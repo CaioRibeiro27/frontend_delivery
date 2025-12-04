@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Settings.css";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle, FaArrowLeft } from "react-icons/fa";
-import api from "../services/api";
 
 import GeneralSettings from "../../components/GeneralSettings/GeneralSettings";
 import PaymentSettings from "../../components/PaymentSettings/PaymentSettings";

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./PaymentSettings.css";
 import { FaPlus, FaCreditCard } from "react-icons/fa";
-import api from "../services/api";
+import api from "../../services/api";
 
 function PaymentSettings({ userId }) {
   const [cards, setCards] = useState([]);

@@ -3,7 +3,6 @@ import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import InputGroup from "../../components/InputGroup/InputGroup";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
-import api from "../services/api";
 
 function Login() {
   const [email, setEmail] = useState("");

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./ProfileSettings.css";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import api from "../services/api";
+import api from "../../services/api";
 
 function ProfileSettings({ userId }) {
   const navigate = useNavigate();

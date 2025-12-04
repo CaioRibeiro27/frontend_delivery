@@ -6,7 +6,6 @@ import {
   FaVolumeMute,
   FaVolumeOff,
 } from "react-icons/fa";
-import api from "../services/api";
 
 function GeneralSettings({ isDarkMode, setIsDarkMode }) {
   const handleThemeChange = (mode) => {

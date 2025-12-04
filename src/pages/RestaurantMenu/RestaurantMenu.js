@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./RestaurantMenu.css";
 import { FaArrowLeft, FaPlus, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import api from "../services/api";
+import api from "../../services/api";
 
 function RestaurantMenu() {
   const navigate = useNavigate();

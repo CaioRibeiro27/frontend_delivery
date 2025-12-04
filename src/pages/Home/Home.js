@@ -4,7 +4,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import { FaSearch, FaStore, FaUtensils } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import OrderHistory from "../../components/OrderHistory/OrderHistory";
-import api from "../services/api";
+import api from "../../services/api";
 
 function Home() {
   const [user, setUser] = useState(null);
