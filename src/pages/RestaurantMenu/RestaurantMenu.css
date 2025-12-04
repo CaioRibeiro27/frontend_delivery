@@ -1,0 +1,171 @@
+.menu-page-container {
+  background-color: #d0d0d0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.menu-card {
+  background-color: #fff;
+  width: 100%;
+  max-width: 1000px;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  border: 1px solid #000;
+}
+
+.menu-card h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.menu-section h3 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  text-align: center;
+  margin-bottom: 15px;
+  color: #000;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #000;
+  margin: 30px 0;
+}
+
+/* Botão cinza de adicionar */
+.add-item-row {
+  background-color: #d9d9d9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: background-color 0.2s;
+  border: 1px solid #ccc;
+}
+
+.add-item-row:hover {
+  background-color: #ccc;
+}
+
+/* Lista de itens */
+.items-list {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-item-card {
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #fff;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  padding-right: 20px;
+}
+
+.item-info strong {
+  font-size: 1.2rem;
+  color: #000;
+}
+
+.item-info span {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.item-info .price {
+  color: green;
+  font-weight: bold;
+  margin-top: 8px;
+  font-size: 1.1rem;
+}
+
+/* Seta de voltar */
+.back-button-container {
+  margin-top: 30px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+.modal-form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.form-buttons button {
+  flex: 1;
+  padding: 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+.btn-avancar {
+  background-color: #90ee90;
+  color: #000;
+}
+.btn-cancelar {
+  background-color: #f08080;
+  color: #000;
+}

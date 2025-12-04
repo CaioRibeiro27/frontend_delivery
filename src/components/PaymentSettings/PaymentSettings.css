@@ -1,0 +1,253 @@
+.payment-content {
+  width: 100%;
+}
+
+.payment-content h2 {
+  font-size: 2rem;
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #000;
+}
+
+.saldo-conta {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 32px;
+}
+
+/* Lista de cartões */
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.card-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  margin: 0 1.6rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.card-item:hover {
+  background-color: #f9f9f9;
+}
+
+.card-icon {
+  color: #333;
+}
+
+.card-details {
+  flex-grow: 1;
+}
+
+.card-details strong {
+  display: block;
+  font-size: 1rem;
+  color: #000;
+}
+
+.card-details span {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.card-edit-link {
+  font-size: 0.9rem;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Seção de Adicionar */
+
+.add-card-box {
+  width: 60px;
+  height: 40px;
+  border: 2px dashed #000000;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+  cursor: pointer;
+  margin-left: 2rem;
+}
+
+/*Adicionar Cartão */
+.add-card-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.add-card-modal-form {
+  background: #fff;
+  padding: 24px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.add-card-modal-form h3 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 24px;
+  color: #000;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.form-buttons button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-avancar {
+  background-color: #90ee90;
+  color: #222;
+}
+
+.btn-cancelar {
+  background-color: #dc3545;
+  color: #222;
+}
+
+.btn-remover {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 12px;
+  flex: 1;
+}
+
+.add-payment-row {
+  border: #000 1px solid;
+}
+
+.add-payment-row .card-icon {
+  color: #555;
+}
+
+.add-payment-row .add-payment-text {
+  color: #007bff;
+  font-weight: 600;
+}
+
+/* Modo escuro */
+
+.dark-mode .payment-content h2,
+.dark-mode .saldo-conta {
+  color: #f0f0f0;
+}
+
+.dark-mode .card-item {
+  border-color: #565656;
+}
+
+.dark-mode .card-icon {
+  color: #f0f0f0;
+}
+
+.dark-mode .card-details strong {
+  color: #f0f0f0;
+}
+
+.dark-mode .card-details span {
+  color: #aaa;
+}
+
+/*Modo Escuro */
+.dark-mode .add-card-modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.dark-mode .add-card-modal-form {
+  background: #121212;
+  border-color: #565656;
+}
+
+.dark-mode .add-card-modal-form h3 {
+  color: #f0f0f0;
+}
+
+.dark-mode .form-group label {
+  color: #f0f0f0;
+}
+
+.dark-mode .form-group input {
+  background-color: #565656;
+  border-color: #807e7e;
+  color: #f0f0f0;
+}
+
+.dark-mode .card-item:hover {
+  background-color: #2a2a2a;
+}
+
+.dark-mode .add-payment-row {
+  border-color: #565656;
+  background-color: #1c1c1c;
+}
+
+.dark-mode .add-payment-row .card-icon {
+  color: #f0f0f0;
+}
+
+.dark-mode .add-payment-row .add-payment-text {
+  color: #007bff;
+}

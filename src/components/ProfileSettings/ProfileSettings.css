@@ -1,0 +1,147 @@
+.profile-content h2 {
+  font-size: 2rem;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+/* Card Superior */
+.profile-header-card {
+  border: 1px solid #000000;
+  border-radius: 8px;
+  padding: 24px;
+  margin: 0 1.6rem;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+.profile-picture-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #555;
+}
+
+.profile-picture-section.static {
+  cursor: default;
+}
+
+.profile-info-text {
+  width: 100%;
+  text-align: left;
+}
+
+.profile-info-text p {
+  margin: 8px 0;
+  font-size: 1.1rem;
+}
+
+/* Lista de Opções */
+.profile-options-list {
+  border: 1px solid #000000;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 1.6rem;
+}
+
+.profile-option-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #747171;
+  background-color: #fff;
+}
+
+.profile-option-row:last-child {
+  border-bottom: none;
+}
+
+.profile-option-row span {
+  font-weight: 600;
+  color: #333;
+}
+
+.btn-alterar {
+  background: none;
+  border: none;
+  color: #7b68ee;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.delete-row {
+  justify-content: center;
+}
+
+.btn-excluir-conta {
+  background: none;
+  border: none;
+  color: red;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-form {
+  background: #fff;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 350px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.input-disabled {
+  background-color: #e0e0e0;
+  color: #555;
+  border: none;
+}
+
+/* MODO ESCURO */
+.dark-mode .profile-header-card,
+.dark-mode .profile-options-list {
+  border-color: #565656;
+}
+
+.dark-mode .profile-option-row {
+  background-color: #121212;
+  border-bottom-color: #565656;
+}
+
+.dark-mode .profile-info-text,
+.dark-mode .profile-option-row span {
+  color: #f0f0f0;
+}
+
+.dark-mode .btn-alterar {
+  color: #a090ff;
+}
+
+.dark-mode .modal-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.dark-mode .modal-form {
+  background-color: #1c1c1c;
+  border-color: #565656;
+  color: #fff;
+}

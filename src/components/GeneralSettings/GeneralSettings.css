@@ -1,0 +1,74 @@
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid;
+  border-radius: 8px;
+  margin: 1.6rem;
+  margin-bottom: 20px;
+}
+
+.setting-row span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.theme-toggle {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.theme-btn {
+  padding: 8px 16px;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.theme-btn.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.volume-controls {
+  display: flex;
+  gap: 16px;
+  color: #555;
+}
+
+.volume-controls svg {
+  cursor: pointer;
+}
+
+/*Modo escuro*/
+
+.dark-mode .setting-row {
+  border: 1px solid #565656;
+}
+
+.dark-mode .setting-row span {
+  color: #f0f0f0;
+}
+
+.dark-mode .volume-controls {
+  color: #f0f0f0;
+}
+
+.dark-mode .theme-toggle {
+  border-color: #565656;
+}
+
+.dark-mode .theme-btn {
+  background-color: #807e7e;
+  color: #f0f0f0;
+}
+
+.dark-mode .theme-btn.active {
+  background-color: #007bff;
+  color: white;
+}
