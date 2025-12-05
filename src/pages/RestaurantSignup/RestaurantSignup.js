@@ -113,6 +113,7 @@ function RestaurantSignup() {
               id="telefone"
               value={formData.telefone}
               onChange={handleChange}
+              max-lenght="11"
             />
             <InputGroup
               label="CNPJ"
@@ -120,6 +121,7 @@ function RestaurantSignup() {
               id="cnpj"
               value={formData.cnpj}
               onChange={handleChange}
+              max-leght="14"
             />
 
             <button type="submit" className="login-button">
