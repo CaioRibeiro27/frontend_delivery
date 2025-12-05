@@ -120,7 +120,7 @@ function Cart() {
     };
 
     try {
-      const response = await post("/api/orders", orderData);
+      const response = await api.post("/api/orders", orderData);
 
       if (response.data.success) {
         alert("Pedido realizado com sucesso!");

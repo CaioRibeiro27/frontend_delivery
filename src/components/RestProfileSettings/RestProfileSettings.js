@@ -12,7 +12,7 @@ function RestProfileSettings({ restaurantId }) {
     try {
       const res = await api.get(`/api/restaurant/${restaurantId}`);
 
-      if (res.data.success) setData(red.data.user);
+      if (res.data.success) setData(res.data.user);
     } catch (error) {
       console.error(error);
     }

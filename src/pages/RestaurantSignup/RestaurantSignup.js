@@ -32,7 +32,7 @@ function RestaurantSignup() {
     try {
       const response = await api.post(
         "/api/auth/register-restaurant",
-        formdata
+        formData
       );
       const data = response.data;
       if (data.success) {
