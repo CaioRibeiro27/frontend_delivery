@@ -156,6 +156,7 @@ function RestaurantSignup() {
               value={formData.cep}
               onChange={handleChange}
               onBlur={checkCEP}
+              mex-leght="8"
             />
             <InputGroup
               label="Bairro"

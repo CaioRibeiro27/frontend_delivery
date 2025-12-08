@@ -14,7 +14,7 @@ function Login() {
     event.preventDefault();
 
     try {
-      const response = await api.post("/api/auth/login", email, password);
+      const response = await api.post("/api/auth/login", { email, password });
       const data = response.data;
 
       if (data.success) {
