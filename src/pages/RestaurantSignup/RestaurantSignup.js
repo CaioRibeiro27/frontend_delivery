@@ -21,12 +21,10 @@ function RestaurantSignup() {
     numero: "",
   });
 
-  // Atualiza os dados
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  // Envia tudo para o backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -37,12 +35,13 @@ function RestaurantSignup() {
       const data = response.data;
       if (data.success) {
         alert("Restaurante cadastrado!");
-        navigate("/"); // Vai para o login
+        navigate("/");
       } else {
         alert("Erro: " + data.message);
       }
     } catch (error) {
       console.error(error);
+      alert("Erro ao conectar com o servidor.");
     }
   };
 
@@ -64,8 +63,7 @@ function RestaurantSignup() {
             cidade: data.localidade,
             estado: data.uf,
           }));
-
-          document.getElementById("numero").focus();
+          document.getElementById("numero")?.focus();
         } else {
           alert("CEP não encontrado.");
         }
@@ -92,6 +90,7 @@ function RestaurantSignup() {
               id="nome"
               value={formData.nome}
               onChange={handleChange}
+              required
             />
             <InputGroup
               label="Email"
@@ -99,6 +98,7 @@ function RestaurantSignup() {
               id="email"
               value={formData.email}
               onChange={handleChange}
+              required
             />
             <InputGroup
               label="Senha"
@@ -106,6 +106,7 @@ function RestaurantSignup() {
               id="senha"
               value={formData.senha}
               onChange={handleChange}
+              required
             />
             <InputGroup
               label="Telefone"
@@ -113,7 +114,8 @@ function RestaurantSignup() {
               id="telefone"
               value={formData.telefone}
               onChange={handleChange}
-              max-lenght="11"
+              maxLength={11}
+              required
             />
             <InputGroup
               label="CNPJ"
@@ -121,7 +123,8 @@ function RestaurantSignup() {
               id="cnpj"
               value={formData.cnpj}
               onChange={handleChange}
-              max-leght="14"
+              maxLength={14}
+              required
             />
 
             <button type="submit" className="login-button">
@@ -141,6 +144,7 @@ function RestaurantSignup() {
               id="estado"
               value={formData.estado}
               onChange={handleChange}
+              required
             />
             <InputGroup
               label="Cidade"
@@ -148,6 +152,7 @@ function RestaurantSignup() {
               id="cidade"
               value={formData.cidade}
               onChange={handleChange}
+              required
             />
             <InputGroup
               label="CEP"
@@ -156,7 +161,8 @@ function RestaurantSignup() {
               value={formData.cep}
               onChange={handleChange}
               onBlur={checkCEP}
-              mex-leght="8"
+              maxLength={8}
+              required
             />
             <InputGroup
               label="Bairro"
@@ -164,6 +170,7 @@ function RestaurantSignup() {
               id="bairro"
               value={formData.bairro}
               onChange={handleChange}
+              required
             />
             <InputGroup
               label="Rua"
@@ -171,6 +178,7 @@ function RestaurantSignup() {
               id="rua"
               value={formData.rua}
               onChange={handleChange}
+              required
             />
             <InputGroup
               label="Numero"
@@ -178,6 +186,7 @@ function RestaurantSignup() {
               id="numero"
               value={formData.numero}
               onChange={handleChange}
+              required
             />
 
             <div style={{ display: "flex", gap: "10px" }}>
