@@ -39,14 +39,17 @@ function RestaurantSignup() {
         navigate("/");
       }
     } catch (error) {
-      console.error(error);
-      alert("Erro ao conectar com o servidor.");
-    }
+      console.error("Erro detalhado:", error);
 
-    if (error.response && error.response.data && error.response.data.message) {
-      alert("Erro: " + error.response.data.message);
-    } else {
-      alert("Erro de conexão ou erro interno no servidor.");
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        alert("Erro: " + error.response.data.message);
+      } else {
+        alert("Erro de conexão ou erro interno no servidor.");
+      }
     }
   };
 
