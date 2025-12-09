@@ -120,15 +120,21 @@ function Home() {
                           Resumo do pedido ({activeOrder.nome_restaurante})
                         </h4>
                         <ul>
-                          {activeOrder.items.map((item, idx) => (
-                            <li key={idx}>
-                              {item.quantidade}x {item.nome_produto}
-                            </li>
-                          ))}
+                          {activeOrder.items && activeOrder.items.length > 0 ? (
+                            activeOrder.items.map((item, idx) => (
+                              <li key={idx}>
+                                {item.quantidade}x {item.nome_produto}
+                              </li>
+                            ))
+                          ) : (
+                            <li>Sem itens</li>
+                          )}
                         </ul>
                       </div>
                       <button className="status-btn">
-                        {activeOrder.statusPedido.replace("_", " ")}
+                        {activeOrder.statusPedido
+                          ? activeOrder.statusPedido.replace("_", " ")
+                          : "Status Desconhecido"}
                       </button>
                     </>
                   ) : (
