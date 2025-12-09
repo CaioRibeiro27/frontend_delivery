@@ -18,7 +18,7 @@ function PaymentSettings({ userId }) {
   const fetchCards = async () => {
     if (!userId) return;
     try {
-      const response = await api.get(`/api/user/${userId}/cards`);
+      const response = await api.get(`/api/user/cards/${userId}`);
       const data = response.data;
 
       if (data.success) {
