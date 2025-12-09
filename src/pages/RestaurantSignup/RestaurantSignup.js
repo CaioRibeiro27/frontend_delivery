@@ -33,15 +33,20 @@ function RestaurantSignup() {
         formData
       );
       const data = response.data;
+
       if (data.success) {
         alert("Restaurante cadastrado!");
         navigate("/");
-      } else {
-        alert("Erro: " + data.message);
       }
     } catch (error) {
       console.error(error);
       alert("Erro ao conectar com o servidor.");
+    }
+
+    if (error.response && error.response.data && error.response.data.message) {
+      alert("Erro: " + error.response.data.message);
+    } else {
+      alert("Erro de conexão ou erro interno no servidor.");
     }
   };
 
