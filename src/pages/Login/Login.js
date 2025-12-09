@@ -14,7 +14,18 @@ function Login() {
     event.preventDefault();
 
     try {
-      const response = await api.post("/api/auth/login", { email, password });
+      const response = await api.post(
+        "/api/auth/login",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = response.data;
 
       if (data.success) {
