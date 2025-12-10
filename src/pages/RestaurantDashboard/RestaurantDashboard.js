@@ -9,7 +9,6 @@ function RestaurantDashboard() {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [orderItems, setOrderItems] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -32,16 +31,8 @@ function RestaurantDashboard() {
     }
   };
 
-  const handleSelectOrder = async (order) => {
+  const handleSelectOrder = (order) => {
     setSelectedOrder(order);
-    try {
-      const response = await fetch(`/api/orders/${order.id_pedido}/items`);
-      const data = response.data;
-
-      if (data.success) setOrderItems(data.items);
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   const updateStatus = async (newStatus) => {
@@ -66,10 +57,12 @@ function RestaurantDashboard() {
     }
   };
 
+  // Cálculo do Lucro (somente pedidos entregues)
   const lucroDia = orders
     .filter((o) => o.statusPedido === "Entregue")
     .reduce((acc, curr) => acc + parseFloat(curr.valor_total), 0);
 
+  // Pedidos em aberto (não entregues e não cancelados)
   const pedidosAbertos = orders.filter(
     (o) => o.statusPedido !== "Entregue" && o.statusPedido !== "Cancelado"
   ).length;
@@ -85,6 +78,7 @@ function RestaurantDashboard() {
       >
         <div className="main-card">
           <div className="dashboard-header">
+            {/* Exibe o nome do restaurante logado */}
             <h2>{user ? user.nome : "Restaurante"}</h2>
             <div className="stats-row">
               <div className="stat-box">
@@ -99,7 +93,7 @@ function RestaurantDashboard() {
           </div>
 
           <div className="orders-area">
-            {/* Coluna esquerda */}
+            {/* Coluna esquerda: Lista */}
             <div className="orders-list-col">
               <h3>Lista de pedidos</h3>
               <div className="orders-scroll">
@@ -123,24 +117,31 @@ function RestaurantDashboard() {
               </div>
             </div>
 
-            {/* Coluna direita */}
+            {/* Coluna direita: Detalhes */}
             <div className="order-details-col">
               <h3>Detalhes do pedidos</h3>
 
               {selectedOrder ? (
                 <div className="details-card">
+                  {/* Lista de itens */}
                   <div className="items-list-box">
-                    {orderItems.map((item, index) => (
-                      <div key={index}>
-                        {item.quantidade}x {item.nome_produto} -- R${" "}
-                        {item.preco_unitario}
-                      </div>
-                    ))}
+                    {selectedOrder.items && selectedOrder.items.length > 0 ? (
+                      selectedOrder.items.map((item, index) => (
+                        <div key={index}>
+                          {item.quantidade}x {item.nome_produto} -- R${" "}
+                          {item.preco_unitario}
+                        </div>
+                      ))
+                    ) : (
+                      <p>Carregando itens ou sem itens...</p>
+                    )}
                   </div>
 
                   <div className="order-info-text">
                     <p>
-                      <strong>Pagamento:</strong> Pix
+                      {/* Correção do pagamento */}
+                      <strong>Pagamento:</strong>{" "}
+                      {selectedOrder.forma_pagamento || "Não informado"}
                     </p>
                     <p>
                       <strong>Endereço:</strong> {selectedOrder.rua},{" "}
@@ -148,6 +149,7 @@ function RestaurantDashboard() {
                     </p>
                   </div>
 
+                  {/* Botões de ação */}
                   <div className="action-area">
                     {selectedOrder.statusPedido === "Em_andamento" && (
                       <button
