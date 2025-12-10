@@ -16,7 +16,7 @@ function Sidebar({ isOpen, setIsOpen, onHistoryClick }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = sessionStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
@@ -27,7 +27,8 @@ function Sidebar({ isOpen, setIsOpen, onHistoryClick }) {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
+    sessionStorage.clear();
     navigate("/");
   };
 
