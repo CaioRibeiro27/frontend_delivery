@@ -29,7 +29,7 @@ function Login() {
       const data = response.data;
 
       if (data.success) {
-        localStorage.setItem(
+        sessionStorage.setItem(
           "user",
           JSON.stringify({ ...data.user, type: data.type })
         );

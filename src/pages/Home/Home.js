@@ -18,7 +18,8 @@ function Home() {
   const [activeOrder, setActiveOrder] = useState(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = sessionStorage.getItem("user");
+
     if (storedUser) {
       const parsed = JSON.parse(storedUser);
       setUser(parsed);
