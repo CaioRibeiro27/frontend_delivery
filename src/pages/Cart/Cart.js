@@ -194,7 +194,6 @@ function Cart() {
                 >
                   <option value="Dinheiro">Dinheiro</option>
                   <option value="Cartao">Cartão</option>
-                  <option value="Pix">Pix</option>
                 </select>
               </div>
 

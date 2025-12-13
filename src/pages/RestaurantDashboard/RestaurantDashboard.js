@@ -78,7 +78,6 @@ function RestaurantDashboard() {
       >
         <div className="main-card">
           <div className="dashboard-header">
-            {/* Exibe o nome do restaurante logado */}
             <h2>{user ? user.nome : "Restaurante"}</h2>
             <div className="stats-row">
               <div className="stat-box">
@@ -93,7 +92,6 @@ function RestaurantDashboard() {
           </div>
 
           <div className="orders-area">
-            {/* Coluna esquerda: Lista */}
             <div className="orders-list-col">
               <h3>Lista de pedidos</h3>
               <div className="orders-scroll">

@@ -99,7 +99,6 @@ function Home() {
                     </div>
                     <div className="rest-info">
                       <strong>{rest.nome}</strong>
-                      <span>{(Math.random() * 5 + 1).toFixed(1)} KM</span>
                     </div>
                   </div>
                 ))}
