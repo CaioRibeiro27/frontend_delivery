@@ -19,6 +19,7 @@ function Cart() {
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState("");
   const [cards, setCards] = useState([]);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     if (!restaurant || !initialCart) {
@@ -27,8 +28,9 @@ function Cart() {
   }, []);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
+    const storedUser = sessionStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
       fetchAddresses(user.id);
       fetchCards(user.id);
     }
@@ -44,7 +46,7 @@ function Cart() {
         setSelectedAddressId(data.addresses[0].id_endereco);
       }
     } catch (e) {
-      console.error("Erro ao busrcar endereços", e);
+      console.error("Erro ao buscar endereços", e);
     }
   };
 
@@ -79,9 +81,15 @@ function Cart() {
   );
 
   const handleFinishOrder = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const storedUser = sessionStorage.getItem("user");
+    const user = storedUser ? JSON.parse(storedUser) : null;
 
-    // Validação de Endereço
+    if (!user) {
+      alert("Sessão expirada. Por favor, faça login novamente.");
+      navigate("/");
+      return;
+    }
+
     if (addresses.length === 0) {
       if (
         window.confirm(
@@ -98,7 +106,6 @@ function Cart() {
       return;
     }
 
-    // Validação de cartão
     if (paymentMethod === "Cartao" && cards.length === 0) {
       if (
         window.confirm(
@@ -109,6 +116,8 @@ function Cart() {
       }
       return;
     }
+
+    setIsProcessing(true);
 
     const orderData = {
       id_usuario: user.id,
@@ -133,6 +142,9 @@ function Cart() {
       }
     } catch (e) {
       console.error("Erro ao finalizar pedido", e);
+      alert("Erro de conexão ao finalizar pedido.");
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -193,7 +205,7 @@ function Cart() {
                   onChange={(e) => setPaymentMethod(e.target.value)}
                 >
                   <option value="Dinheiro">Dinheiro</option>
-                  <option value="Cartao">Cartão</option>
+                  <option value="Cartao">Cartão (Cadastrado)</option>
                 </select>
               </div>
 
@@ -244,8 +256,13 @@ function Cart() {
             />
 
             {cart.length > 0 && (
-              <button className="btn-finish-order" onClick={handleFinishOrder}>
-                Finalizar pedido
+              <button
+                className="btn-finish-order"
+                onClick={handleFinishOrder}
+                disabled={isProcessing}
+                style={{ opacity: isProcessing ? 0.7 : 1 }}
+              >
+                {isProcessing ? "Enviando..." : "Finalizar pedido"}
               </button>
             )}
           </div>
