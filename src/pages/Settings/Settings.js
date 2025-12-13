@@ -19,7 +19,6 @@ function Settings() {
     if (storedUser) {
       const parsed = JSON.parse(storedUser);
       setUser(parsed);
-      fetchUserData(parsed.id);
     }
   }, []);
 
