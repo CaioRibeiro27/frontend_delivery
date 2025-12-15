@@ -17,7 +17,7 @@ function RestaurantMenu() {
   const [preco, setPreco] = useState("");
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = sessionStorage.getItem("user");
     if (storedUser) {
       const parsed = JSON.parse(storedUser);
       setUser(parsed);
@@ -36,6 +36,27 @@ function RestaurantMenu() {
     }
   };
 
+  // Deletar item do cardapio
+  const handleDeleteItem = async (idItem) => {
+    if (window.confirm("Tem certeza que deseja excluir este item?")) {
+      try {
+        const response = await api.delete(`/api/restaurant/menu/${idItem}`);
+
+        if (response.data.success || response.status === 200) {
+          setMenuItems((prevItems) =>
+            prevItems.filter((item) => item.id_cardapio !== idItem)
+          );
+          alert("Item removido com sucesso!");
+        }
+      } catch (error) {
+        console.error("Erro ao deletar:", error);
+        alert(
+          "Erro ao remover o item. Verifique se o backend está atualizado."
+        );
+      }
+    }
+  };
+
   const openModal = (category) => {
     setCategoryToAdd(category);
     setIsModalOpen(true);
@@ -43,12 +64,16 @@ function RestaurantMenu() {
 
   const handleAddItem = async (e) => {
     e.preventDefault();
+
+    const storedUser = sessionStorage.getItem("user");
+    const currentUser = storedUser ? JSON.parse(storedUser) : user;
+
     const newItem = {
       nome_produto: nome,
       descricao: descricao,
-      preco: preco,
+      preco: parseFloat(preco),
       categoria: categoryToAdd,
-      id_restaurante: user.id,
+      id_restaurante: currentUser.id,
     };
 
     try {
@@ -59,10 +84,11 @@ function RestaurantMenu() {
         setNome("");
         setDescricao("");
         setPreco("");
-        fetchMenu(user.id);
+        fetchMenu(currentUser.id);
       }
     } catch (error) {
       console.error(error);
+      alert("Erro ao adicionar item.");
     }
   };
 
@@ -79,10 +105,34 @@ function RestaurantMenu() {
               <div className="item-info">
                 <strong>{item.nome_produto}</strong>
                 <span>{item.descricao}</span>
-                <span className="price">R$ {item.preco}</span>
+                <span className="price">
+                  R$ {Number(item.preco).toFixed(2).replace(".", ",")}
+                </span>
+              </div>
+
+              {/* Ícone de lixeira */}
+              <div
+                onClick={() => handleDeleteItem(item.id_cardapio)}
+                style={{
+                  cursor: "pointer",
+                  color: "#e74c3c",
+                  marginLeft: "15px",
+                  padding: "5px",
+                }}
+                title="Excluir item"
+              >
+                <FaTrash />
               </div>
             </div>
           ))}
+
+          {items.length === 0 && (
+            <p
+              style={{ color: "#888", fontStyle: "italic", fontSize: "0.9rem" }}
+            >
+              Nenhum item nesta categoria.
+            </p>
+          )}
         </div>
 
         {/* Botão de Adicionar*/}
@@ -97,7 +147,7 @@ function RestaurantMenu() {
   return (
     <div className="menu-page-container">
       <div className="menu-card">
-        <h2>Cardapio</h2>
+        <h2>Cardápio</h2>
 
         {/* Seções */}
         {renderSection("Refeições", "Refeicoes", "Adicionar refeição")}
@@ -117,7 +167,7 @@ function RestaurantMenu() {
         </div>
       </div>
 
-      {/* Adicionar item */}
+      {/* Modal de Adicionar item */}
       {isModalOpen && (
         <div className="modal-overlay">
           <form className="modal-form" onSubmit={handleAddItem}>
@@ -155,15 +205,15 @@ function RestaurantMenu() {
             </div>
 
             <div className="form-buttons">
-              <button type="submit" className="btn-avancar">
-                Salvar
-              </button>
               <button
                 type="button"
                 className="btn-cancelar"
                 onClick={() => setIsModalOpen(false)}
               >
                 Cancelar
+              </button>
+              <button type="submit" className="btn-avancar">
+                Salvar
               </button>
             </div>
           </form>

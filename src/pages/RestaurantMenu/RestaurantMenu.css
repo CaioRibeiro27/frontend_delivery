@@ -12,13 +12,13 @@
 .menu-card {
   background-color: #fff;
   width: 100%;
-  max-width: 90%;
+  max-width: 95%;
   border-radius: 8px;
   padding: 40px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   position: relative;
   border: 1px solid #000;
-  min-height: 80vh;
+  box-sizing: border-box;
 }
 
 .menu-card h2 {
