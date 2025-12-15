@@ -1,96 +1,63 @@
-# 🍔 Sistema de Delivery (Full-Stack)
+# 🛵 Delivery App
 
-Este é um projeto de estudo de um aplicativo de delivery completo, seu desenvolvimento foi feito com: React, Node.js (Express) e MySQL.
-
-O projeto inclui cadastro e login de usuários com criptografia de senha, e está estruturado com um frontend (React) que consome uma API REST (Node.js) conectada a um banco de dados relacional (MySQL).
+Um sistema completo de delivery (estilo iFood) que conecta clientes e restaurantes, permitindo realização de pedidos, gestão de cardápio e acompanhamento de status em tempo real.
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Frontend:** React, React Router, React Icons
-- **Backend:** Node.js, Express
-- **Banco de Dados:** MySQL
-- **Autenticação:** Bcryptjs (para hash de senhas)
-- **Conexão:** `mysql2`, `cors`, `dotenv`
+Este projeto foi desenvolvido utilizando as seguintes tecnologias:
+
+### Frontend
+
+- **React.js**: Biblioteca principal para construção da interface.
+- **React Router Dom**: Para gerenciamento de rotas e navegação.
+- **CSS3**: Estilização responsiva e moderna.
+- **Axios**: Para consumo da API e requisições HTTP.
+- **React Icons**: Ícones utilizados na interface.
+
+### Backend
+
+- **Node.js & Express**: Servidor e construção da API RESTful.
+- **PostgreSQL**: Banco de dados relacional para armazenar usuários, pedidos e produtos.
+- **SessionStorage**: Gerenciamento de sessão para isolamento de login entre abas.
 
 ---
 
-## 🚀 Como Rodar o Projeto
+## 🚀 Guia de Uso (Como testar)
 
-### Pré-requisitos
+Para ter a melhor experiência de uso e simular um pedido real, recomendo seguir o fluxo abaixo:
 
-Ferramentas necessárias:
+### 1. Preparação do Ambiente
 
-- [Node.js](https://nodejs.org/) (que já vem com o npm)
-- [Git](https://git-scm.com/)
-- Um servidor MySQL (recomendo [XAMPP](https://www.apachefriends.org/pt_br/index.html), pois facilita a visualização com o phpMyAdmin)
+- Abra o sistema em **duas abas diferentes**.
+- Isso permitirá simular o **Cliente** e o **Restaurante** simultaneamente.
 
----
+### 2. Cadastro do Cliente
 
-### 1. Configuração do Banco de Dados
+- Na primeira aba, crie uma conta de **Usuário**.
+- Vá até as **Configurações** e cadastre:
+  - Um Endereço de entrega.
+  - Um Cartão de crédito (simulado).
 
-1.  Inicie os módulos **Apache** e **MySQL** no seu painel de controle do XAMPP.
-2.  Abra o **phpMyAdmin** (clicando em "Admin" na linha do MySQL no XAMPP).
-3.  Crie um novo banco de dados. Clique em **"Novo"** (ou "New") na barra lateral e dê o nome de `Sistema_delivery`.
-4.  Com o banco `Sistema_delivery` selecionado no menu, clique na aba **"Importar"** (ou "Import") no topo.
-5.  Clique em "Escolher arquivo" e selecione o arquivo `backend/Sistema delivery.sql` que está neste projeto.
-6.  Desça e clique em **"Executar"** (ou "Go"). As tabelas (`usuario`, `pedido`, etc.) serão criadas.
+### 3. Configuração do Restaurante
 
-### 2. Configuração do Backend
+- Na segunda aba, crie uma conta de **Restaurante**.
+- Acesse a barra lateral e vá na opção de **Cardápio**.
+- Cadastre alguns produtos (ex: Hambúrguer, Refrigerante) para que sua loja fique visível.
 
-1.  Clone este repositório para sua máquina:
+### 4. Realizando o Pedido
 
-    ```bash
-    git clone https://github.com/CaioRibeiro27/sistema_delivery.git
-    cd SEU-REPOSITORIO
-    ```
+- Volte para a conta do **Usuário** e atualize a página. O restaurante criado aparecerá na lista.
+- Entre no restaurante, escolha os itens e finalize o pedido no carrinho.
 
-2.  Navegue até a pasta do backend e instale as dependências:
+### 5. Gestão do Pedido
 
-    ```bash
-    cd backend
-    npm install
-    ```
+- Na conta do **Restaurante**, o novo pedido aparecerá na Dashboard.
+- O restaurante pode avançar o status: _Aceitar_ -> _Saiu para Entrega_ -> _Entregue_.
+- A cada mudança, o cliente pode ver a atualização em tempo real na sua tela.
 
-3.  Crie um arquivo chamado `.env` dentro desta pasta (`backend/.env`).
-4.  Abra este `.env` e cole o seguinte conteúdo. (Estes são os padrões do XAMPP, então se você não mudou a senha do seu MySQL, funcionará direto).
+### 6. Finalização
 
-    ```
-    DB_HOST=localhost
-    DB_USER=root
-    DB_PASSWORD=
-    DB_NAME=Sistema_delivery
-    ```
+- **Financeiro:** Ao marcar como "Entregue", o valor entra no "Lucro do Dia" do restaurante.
+- **Histórico:** O pedido fica salvo no histórico de ambos os usuários.
 
-### 3. Configuração do Frontend
-
-1.  Abra um **novo terminal**.
-2.  Navegue até a pasta raiz do projeto (a que tem o `src/`):
-    ```bash
-    cd SEU-REPOSITORIO
-    ```
-3.  Instale as dependências do React:
-    ```bash
-    npm install
-    ```
-
-### 4. Ligando Tudo!
-
-Serão neccessarios **dois terminais** rodando simultaneamente.
-
-- **Terminal 1 (Para rodar o Backend):**
-
-  ```bash
-  # (Dentro da pasta /backend)
-  npm start
-  ```
-
-  _(Você deve ver a mensagem: 🚀 Servidor backend rodando na porta 3001)_
-
-- **Terminal 2 (Para rodar o Frontend):**
-  ```bash
-  # (Dentro da pasta raiz do projeto)
-  npm start
-  ```
-  _(Seu navegador abrirá automaticamente em `http://localhost:3000`)_
-
-Pronto! Agora você pode acessar `http://localhost:3000/cadastro`, criar uma conta, e verificar os dados aparecendo no phpMyAdmin.
+Desenvolvido por Caio Ribeiro

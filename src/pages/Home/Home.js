@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Home.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { FaSearch, FaStore, FaUtensils } from "react-icons/fa";
+import { FaSearch, FaUtensils } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import OrderHistory from "../../components/OrderHistory/OrderHistory";
 import api from "../../services/api";
@@ -12,7 +12,6 @@ function Home() {
   const navigate = useNavigate();
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
-  // Estados de Dados
   const [restaurants, setRestaurants] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeOrder, setActiveOrder] = useState(null);
@@ -23,12 +22,18 @@ function Home() {
     if (storedUser) {
       const parsed = JSON.parse(storedUser);
       setUser(parsed);
+
       fetchData(parsed.id);
+
+      const intervalId = setInterval(() => {
+        fetchActiveOrderOnly(parsed.id);
+      }, 5000);
+
+      return () => clearInterval(intervalId);
     }
   }, []);
 
   const fetchData = async (userId) => {
-    // Busca Restaurantes
     try {
       const resRest = await api.get("/api/restaurant/all");
       const dataRest = resRest.data;
@@ -38,18 +43,20 @@ function Home() {
       console.error(e);
     }
 
-    // Busca Pedido Ativo
+    fetchActiveOrderOnly(userId);
+  };
+
+  const fetchActiveOrderOnly = async (userId) => {
     try {
       const resOrder = await api.get(`/api/user/${userId}/active-order`);
       const dataOrder = resOrder.data;
 
-      if (dataOrder.success) setActiveOrder(dataOrder.activeOrder);
-    } catch (e) {
-      console.error(e);
-    }
+      if (dataOrder.success) {
+        setActiveOrder(dataOrder.activeOrder);
+      }
+    } catch (e) {}
   };
 
-  // Filtra restaurantes pela busca
   const filteredRestaurants = restaurants.filter((rest) =>
     rest.nome.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -111,7 +118,21 @@ function Home() {
 
             <div className="right-column">
               <div className="status-box">
-                <h3>Status</h3>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <h3>Status</h3>
+                  {activeOrder && (
+                    <span style={{ fontSize: "10px", color: "green" }}>
+                      ● Ao vivo
+                    </span>
+                  )}
+                </div>
+
                 <div className="status-content">
                   {activeOrder ? (
                     <>
@@ -127,14 +148,14 @@ function Home() {
                               </li>
                             ))
                           ) : (
-                            <li>Sem itens</li>
+                            <li>Carregando itens...</li>
                           )}
                         </ul>
                       </div>
                       <button className="status-btn">
                         {activeOrder.statusPedido
                           ? activeOrder.statusPedido.replace("_", " ")
-                          : "Status Desconhecido"}
+                          : "Processando..."}
                       </button>
                     </>
                   ) : (

@@ -22,13 +22,10 @@ function SocialLogin({ mode }) {
           return;
         }
 
-        localStorage.setItem(
+        sessionStorage.setItem(
           "user",
           JSON.stringify({ ...data.user, type: data.type })
         );
-
-        if (!data.user.telefone && mode === "login") {
-        }
 
         navigate("/home");
       } else {
@@ -36,6 +33,7 @@ function SocialLogin({ mode }) {
       }
     } catch (error) {
       console.error("Erro:", error);
+      alert("Erro ao conectar com Google.");
     }
   };
 
