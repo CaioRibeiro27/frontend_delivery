@@ -33,16 +33,6 @@ function GeneralSettings({ isDarkMode, setIsDarkMode }) {
           </button>
         </div>
       </div>
-
-      <div className="setting-row">
-        <span>Notificação</span>
-        <div className="volume-controls">
-          <FaVolumeOff size={20} />
-          <FaVolumeMute size={20} />
-          <FaVolumeDown size={20} />
-          <FaVolumeUp size={20} />
-        </div>
-      </div>
     </>
   );
 }

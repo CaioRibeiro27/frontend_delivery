@@ -19,6 +19,7 @@
   position: relative;
   border: 1px solid #000;
   box-sizing: border-box;
+  min-height: 80vh;
 }
 
 .menu-card h2 {

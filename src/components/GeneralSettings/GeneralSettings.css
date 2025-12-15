@@ -72,3 +72,12 @@
   background-color: #007bff;
   color: white;
 }
+
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode p,
+.dark-mode label {
+  color: #f0f0f0;
+}
