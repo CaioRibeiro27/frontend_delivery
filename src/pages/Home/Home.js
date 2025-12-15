@@ -11,7 +11,6 @@ function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-
   const [restaurants, setRestaurants] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeOrder, setActiveOrder] = useState(null);

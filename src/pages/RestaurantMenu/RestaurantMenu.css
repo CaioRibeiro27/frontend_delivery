@@ -12,12 +12,13 @@
 .menu-card {
   background-color: #fff;
   width: 100%;
-  max-width: 1000px;
+  max-width: 90%;
   border-radius: 8px;
-  padding: 30px;
+  padding: 40px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   position: relative;
   border: 1px solid #000;
+  min-height: 80vh;
 }
 
 .menu-card h2 {
@@ -48,11 +49,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 25px;
+  padding: 20px 30px;
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   transition: background-color 0.2s;
   border: 1px solid #ccc;
 }
@@ -127,9 +128,10 @@
 }
 .modal-form {
   background: #fff;
-  padding: 30px;
+  padding: 40px;
   border-radius: 8px;
-  width: 400px;
+  width: 600px;
+  max-width: 90%;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 .form-group {
