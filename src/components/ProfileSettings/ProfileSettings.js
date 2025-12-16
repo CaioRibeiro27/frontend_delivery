@@ -73,31 +73,28 @@ function ProfileSettings({ userId }) {
   };
 
   const handleDeleteAccount = async () => {
+    // Verificação de segurança: garante que temos o ID vindo das props
+    if (!userId) {
+      alert("Erro: ID do usuário não encontrado.");
+      return;
+    }
+
     const confirm = window.confirm(
       "Tem certeza? Isso apagará todo seu histórico e endereços."
     );
 
     if (confirm) {
       try {
-        const storedUser =
-          localStorage.getItem("user") || sessionStorage.getItem("user");
+        await api.delete(`/api/user/users/${userId}`);
 
-        if (!storedUser) {
-          alert("Erro: Usuário não identificado no navegador.");
-          return;
-        }
-
-        const user = JSON.parse(storedUser);
-
-        await api.delete(`/api/user/users/${user.id}`);
-
-        alert("Conta excluída. Tchau!");
+        alert("Conta excluída.");
 
         localStorage.clear();
         sessionStorage.clear();
+
         navigate("/login");
       } catch (error) {
-        console.error(error);
+        console.error("Erro ao deletar:", error);
         alert("Erro ao excluir conta. Veja o console.");
       }
     }
