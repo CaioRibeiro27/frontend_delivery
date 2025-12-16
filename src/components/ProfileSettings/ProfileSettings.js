@@ -73,28 +73,29 @@ function ProfileSettings({ userId }) {
   };
 
   const handleDeleteAccount = async () => {
-    if (
-      window.confirm(
-        "ATENÇÃO: Tem certeza que deseja excluir sua conta? Essa ação não pode ser desfeita."
-      )
-    ) {
-      try {
-        const response = await api.delete(`/api/user/users/${userId}`);
-        const data = response.data;
+    const confirm = window.confirm(
+      "Tem certeza? Isso apagará todo seu histórico e endereços."
+    );
 
-        if (data.success) {
-          alert("Conta excluída.");
-          localStorage.removeItem("user");
-          navigate("/");
-        } else {
-          alert("Erro ao excluir: " + data.message);
+    if (confirm) {
+      try {
+        const storedUser = sessionStorage.getItem("user");
+        if (!storedUser) return;
+
+        const user = JSON.parse(storedUser);
+        const response = await api.delete(`/api/user/${user.id}`);
+
+        if (response.data.success) {
+          alert("Conta excluída. Tchau!");
+          sessionStorage.clear();
+          navigate("/login");
         }
       } catch (error) {
         console.error(error);
+        alert("Erro ao excluir conta.");
       }
     }
   };
-
   if (!userData) return <div>Carregando perfil...</div>;
 
   return (

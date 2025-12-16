@@ -104,16 +104,22 @@ function AddressSettings({ userId }) {
         const response = await api.delete(
           `/api/user/addresses/${selectedAddressId}`
         );
-
-        const data = response.data();
+        const data = response.data;
 
         if (data.success) {
           alert("Endereço removido!");
           setIsModalOpen(false);
-          fetchAddresses();
+          setAddresses((prevAddresses) =>
+            prevAddresses.filter(
+              (addr) => addr.id_endereco !== selectedAddressId
+            )
+          );
         }
       } catch (error) {
         console.error("Erro ao deletar:", error);
+        const msg =
+          error.response?.data?.message || "Erro ao deletar endereço.";
+        alert(msg);
       }
     }
   };
