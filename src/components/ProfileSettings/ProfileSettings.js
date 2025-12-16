@@ -79,23 +79,30 @@ function ProfileSettings({ userId }) {
 
     if (confirm) {
       try {
-        const storedUser = sessionStorage.getItem("user");
-        if (!storedUser) return;
+        const storedUser =
+          localStorage.getItem("user") || sessionStorage.getItem("user");
+
+        if (!storedUser) {
+          alert("Erro: Usuário não identificado no navegador.");
+          return;
+        }
 
         const user = JSON.parse(storedUser);
-        const response = await api.delete(`/api/user/users/${user.id}`);
 
-        if (response.data.success) {
-          alert("Conta excluída. Tchau!");
-          sessionStorage.clear();
-          navigate("/login");
-        }
+        await api.delete(`/api/user/users/${user.id}`);
+
+        alert("Conta excluída. Tchau!");
+
+        localStorage.clear();
+        sessionStorage.clear();
+        navigate("/login");
       } catch (error) {
         console.error(error);
-        alert("Erro ao excluir conta.");
+        alert("Erro ao excluir conta. Veja o console.");
       }
     }
   };
+
   if (!userData) return <div>Carregando perfil...</div>;
 
   return (
