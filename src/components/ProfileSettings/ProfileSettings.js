@@ -83,7 +83,7 @@ function ProfileSettings({ userId }) {
         if (!storedUser) return;
 
         const user = JSON.parse(storedUser);
-        const response = await api.delete(`/api/user/${user.id}`);
+        const response = await api.delete(`/api/user/users/${user.id}`);
 
         if (response.data.success) {
           alert("Conta excluída. Tchau!");
