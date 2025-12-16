@@ -66,11 +66,6 @@ function Sidebar({ isOpen, setIsOpen, onHistoryClick }) {
           </li>
         )}
 
-        {/* Descontos (Para todos) */}
-        <li>
-          <FaTicketAlt /> <span>Descontos</span>
-        </li>
-
         {/* Botão de Sair */}
         <li
           onClick={handleLogout}
